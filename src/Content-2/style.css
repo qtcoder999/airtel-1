@@ -1,0 +1,56 @@
+.audience-selection {
+  width: 100%;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.6;
+  letter-spacing: normal;
+  color: #921515;
+}
+.you-can-market-your {
+  font-size: 11px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #5d5d5d;
+}
+.content-box {
+  width: 450px;
+  height: 300px;
+  border-radius: 4px;
+  box-shadow: 10px 0 40px 0 rgba(136, 136, 136, 0.21);
+  background-color: #ffffff;
+  padding: 16px;
+  position: relative;
+}
+.category-title {
+  font-size: 12.5px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #898989;
+  margin-bottom: 8px !important;
+}
+textarea,
+input,
+select {
+  padding-bottom: 2px;
+  font-size: 11px;
+  border: none;
+  border-bottom: 0.5px solid #ddd;
+}
+svg {
+  z-index: 999 !important;
+  position: absolute;
+  top: 20px;
+  left: 260px;
+}
+.other-titles {
+  font-size: 9px;
+  font-weight: bold;
+  color: #556cd6;
+}
