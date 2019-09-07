@@ -13,7 +13,7 @@ export default class Content extends React.Component {
   }
   componentDidMount() {
     // let initialPlanets = [];
-    fetch("http://www.mocky.io/v2/5d6f8b213100002d006606b0")
+    fetch("http://www.mocky.io/v2/5d73cc873300007d3608189d")
       .then(response => response.json())
       .then(data => {
         // eslint-disable-next-line react/no-unused-state
@@ -123,7 +123,29 @@ export default class Content extends React.Component {
     );
   }
   render() {
-    // console.log("State: ", this.state.data);
+    const buffer = [];
+
+    if (this.state.data && this.state.data !== "undefined") {
+      this.state.data.data.map(item => {
+        switch (item.type) {
+          case "text":
+            buffer.push(this.renderInputField());
+            break;
+          case "text-block":
+            buffer.push(this.renderTextBlock());
+            break;
+          case "dropdown":
+            buffer.push(this.renderSelect());
+            break;
+          case "upload":
+            buffer.push(this.renderUploadPic());
+            break;
+          default:
+        }
+        return null;
+      });
+    }
+
     return (
       <React.Fragment>
         <div className="audience-selection">AUDIENCE SELECTION</div>
@@ -133,10 +155,7 @@ export default class Content extends React.Component {
         </div>
         <div className="content-box">
           <div className="other-titles">Customer segments</div>
-          {this.renderInputField()}
-          {this.renderTextBlock()}
-          {this.renderSelect()}
-          {this.renderUploadPic()}
+          {buffer && buffer}
           <PieChart
             data={[
               {
