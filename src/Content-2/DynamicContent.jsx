@@ -25,16 +25,17 @@ export default class Content extends React.Component {
       let categoryTitle;
 
       const { data } = this.state;
+      let attributes;
+
       if (data !== "undefined" && data) {
         for (let i = 0; i <= data.data.length; i += 1) {
-          // eslint-disable-next-line prefer-destructuring
           if (
             data.data[i] &&
             data.data[i] !== "undefined" &&
             data.data[i].type === dataType
           ) {
-            // eslint-disable-next-line prefer-destructuring
-            categoryTitle = data.data[i].categoryTitle;
+            ({ attributes } = data.data[i]);
+            ({ categoryTitle } = data.data[i]);
 
             if (dataType === "dropdown") {
               const optionItemsArray = data.data[i].optionItems;
@@ -43,8 +44,7 @@ export default class Content extends React.Component {
               ));
               return [categoryTitle, optionItemsTags];
             }
-
-            return categoryTitle;
+            return [categoryTitle, attributes];
           }
         }
       }
@@ -53,7 +53,7 @@ export default class Content extends React.Component {
   }
 
   renderInputField() {
-    const categoryTitle = this.analyzeData("text");
+    const [categoryTitle, attributes] = this.analyzeData("text");
     return (
       <div>
         <label className="category-title" htmlFor="field-1">
@@ -62,13 +62,13 @@ export default class Content extends React.Component {
             : null}
         </label>
         <br />
-        <input type="text" id="field-1" />
+        <input type="text" id="field-1" {...attributes} />
         <br />
       </div>
     );
   }
   renderTextBlock() {
-    const categoryTitle = this.analyzeData("text-block");
+    const [categoryTitle, attributes] = this.analyzeData("text-block");
 
     return (
       <div>
@@ -78,18 +78,16 @@ export default class Content extends React.Component {
             : null}
         </label>
         <br />
-        <textarea
-          defaultValue="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the test standard dummy text ever"
-          rows="4"
-          cols="50"
-        />
+        <textarea {...attributes} />
         <br />
       </div>
     );
   }
   renderSelect() {
     if (this.state.data !== "undefined" && this.state.data) {
-      const [categoryTitle, optionItemsTags] = this.analyzeData("dropdown");
+      const [categoryTitle, optionItemsTags, attributes] = this.analyzeData(
+        "dropdown"
+      );
 
       return (
         <div>
@@ -99,7 +97,7 @@ export default class Content extends React.Component {
               : null}
           </label>
           <br />
-          <select>{optionItemsTags}</select>
+          <select {...attributes}>{optionItemsTags}</select>
         </div>
       );
     }
@@ -107,7 +105,7 @@ export default class Content extends React.Component {
   }
 
   renderUploadPic() {
-    const categoryTitle = this.analyzeData("upload");
+    const [categoryTitle, attributes] = this.analyzeData("upload");
 
     return (
       <div>
@@ -117,7 +115,7 @@ export default class Content extends React.Component {
             : null}
         </label>
         <br />
-        <input type="file" name="pic" accept="image/*" />
+        <input type="file" {...attributes} />
         <br />
       </div>
     );
