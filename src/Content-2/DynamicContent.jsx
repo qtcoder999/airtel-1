@@ -20,7 +20,7 @@ export default class Content extends React.Component {
         this.setState({ data });
       });
   }
-  renderInputField() {
+  analyzeData(dataType) {
     if (this.state.data !== "undefined" && this.state.data) {
       let categoryTitle;
 
@@ -31,96 +31,65 @@ export default class Content extends React.Component {
           if (
             data.data[i] &&
             data.data[i] !== "undefined" &&
-            data.data[i].type === "text"
+            data.data[i].type === dataType
           ) {
             // eslint-disable-next-line prefer-destructuring
             categoryTitle = data.data[i].categoryTitle;
+
+            if (dataType === "dropdown") {
+              const optionItemsArray = data.data[i].optionItems;
+              const optionItemsTags = optionItemsArray.map(item => (
+                <option>{item}</option>
+              ));
+              return [categoryTitle, optionItemsTags];
+            }
+
+            return categoryTitle;
           }
         }
       }
-      return (
-        <div>
-          <label className="category-title" htmlFor="field-1">
-            {categoryTitle && categoryTitle !== "undefined"
-              ? categoryTitle
-              : null}
-          </label>
-          <br />
-          <input type="text" id="field-1" />
-          <br />
-        </div>
-      );
     }
     return null;
+  }
+
+  renderInputField() {
+    const categoryTitle = this.analyzeData("text");
+    return (
+      <div>
+        <label className="category-title" htmlFor="field-1">
+          {categoryTitle && categoryTitle !== "undefined"
+            ? categoryTitle
+            : null}
+        </label>
+        <br />
+        <input type="text" id="field-1" />
+        <br />
+      </div>
+    );
   }
   renderTextBlock() {
-    if (this.state.data !== "undefined" && this.state.data) {
-      let categoryTitle;
+    const categoryTitle = this.analyzeData("text-block");
 
-      const { data } = this.state;
-      if (data !== "undefined" && data) {
-        for (let i = 0; i <= data.data.length; i += 1) {
-          // eslint-disable-next-line prefer-destructuring
-          if (
-            data.data[i] &&
-            data.data[i] !== "undefined" &&
-            data.data[i].type === "text-block"
-          ) {
-            // eslint-disable-next-line prefer-destructuring
-            categoryTitle = data.data[i].categoryTitle;
-          }
-        }
-      }
-      return (
-        <div>
-          <label className="category-title" htmlFor="field-1">
-            {categoryTitle && categoryTitle !== "undefined"
-              ? categoryTitle
-              : null}
-          </label>
-          <br />
-          <textarea
-            defaultValue="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the test standard dummy text ever"
-            rows="4"
-            cols="50"
-          />
-          <br />
-        </div>
-      );
-    }
-    return null;
+    return (
+      <div>
+        <label className="category-title" htmlFor="field-1">
+          {categoryTitle && categoryTitle !== "undefined"
+            ? categoryTitle
+            : null}
+        </label>
+        <br />
+        <textarea
+          defaultValue="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the test standard dummy text ever"
+          rows="4"
+          cols="50"
+        />
+        <br />
+      </div>
+    );
   }
   renderSelect() {
-    let optionItemsTags;
     if (this.state.data !== "undefined" && this.state.data) {
-      let categoryTitle;
-
-      const { data } = this.state;
-      if (data !== "undefined" && data) {
-        for (let i = 0; i <= data.data.length; i += 1) {
-          // eslint-disable-next-line prefer-destructuring
-          if (
-            data.data[i] &&
-            data.data[i] !== "undefined" &&
-            data.data[i].type === "dropdown"
-          ) {
-            // eslint-disable-next-line prefer-destructuring
-            categoryTitle = data.data[i].categoryTitle;
-            // eslint-disable-next-line prefer-destructuring
-            const optionItemsArray = data.data[i].optionItems;
-            optionItemsTags = optionItemsArray.map(item => (
-              <option>{item}</option>
-            ));
-          }
-        }
-      }
-
-      //   const optionItems = (
-      //     <React.Fragment>
-      //       <option key="1">Delhi</option>
-      //       <option key="2">Noida</option>
-      //     </React.Fragment>
-      //   );
+      const [categoryTitle, optionItemsTags] = this.analyzeData("dropdown");
 
       return (
         <div>
@@ -138,37 +107,20 @@ export default class Content extends React.Component {
   }
 
   renderUploadPic() {
-    if (this.state.data !== "undefined" && this.state.data) {
-      let categoryTitle;
+    const categoryTitle = this.analyzeData("upload");
 
-      const { data } = this.state;
-      if (data !== "undefined" && data) {
-        for (let i = 0; i <= data.data.length; i += 1) {
-          // eslint-disable-next-line prefer-destructuring
-          if (
-            data.data[i] &&
-            data.data[i] !== "undefined" &&
-            data.data[i].type === "upload"
-          ) {
-            // eslint-disable-next-line prefer-destructuring
-            categoryTitle = data.data[i].categoryTitle;
-          }
-        }
-      }
-      return (
-        <div>
-          <label className="category-title" htmlFor="field-1">
-            {categoryTitle && categoryTitle !== "undefined"
-              ? categoryTitle
-              : null}
-          </label>
-          <br />
-          <input type="file" name="pic" accept="image/*" />
-          <br />
-        </div>
-      );
-    }
-    return null;
+    return (
+      <div>
+        <label className="category-title" htmlFor="field-1">
+          {categoryTitle && categoryTitle !== "undefined"
+            ? categoryTitle
+            : null}
+        </label>
+        <br />
+        <input type="file" name="pic" accept="image/*" />
+        <br />
+      </div>
+    );
   }
   render() {
     // console.log("State: ", this.state.data);
