@@ -26,8 +26,8 @@
     "react-scripts": "1.1.5"
   },
   "scripts": {
-    "start": "react-scripts --require ./bin/expand-metadatas.js start",
-    "build": "react-scripts --require ./bin/expand-metadatas.js build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "test": "npm run test:unit",
