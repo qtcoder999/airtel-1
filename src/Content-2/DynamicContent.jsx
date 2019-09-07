@@ -13,7 +13,7 @@ export default class Content extends React.Component {
   }
   componentDidMount() {
     // let initialPlanets = [];
-    fetch("http://www.mocky.io/v2/5d73cc873300007d3608189d")
+    fetch("https://jsonblob.com/api/1f15b556-d186-11e9-8f37-8bd3b49d435f")
       .then(response => response.json())
       .then(data => {
         // eslint-disable-next-line react/no-unused-state
